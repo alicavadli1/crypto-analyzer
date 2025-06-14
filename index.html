@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kripto Analiz Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="dashboard">
+    <div class="sidebar">
+      <div class="logo">
+        <i class="fas fa-chart-line"></i>
+        <span>KriptoAnaliz</span>
+      </div>
+      <div class="control-panel">
+        <div class="select-wrapper">
+          <i class="fas fa-coins"></i>
+          <select id="symbol">
+            <option value="BTCUSDT">BTCUSDT</option>
+            <option value="ETHUSDT">ETHUSDT</option>
+            <option value="SOLUSDT">SOLUSDT</option>
+            <option value="BNBUSDT">BNBUSDT</option>
+            <option value="XRPUSDT">XRPUSDT</option>
+            <option value="PEPEUSDT">PEPEUSDT</option>
+          </select>
+        </div>
+        <div class="action-buttons">
+          <button id="startAnalysisBtn" class="action-btn start-btn">
+            <i class="fas fa-play"></i> Analiz Başlat
+          </button>
+          <button id="clearAllBtn" class="action-btn clear-btn">
+            <i class="fas fa-trash"></i> Tümünü Temizle
+          </button>
+          <button id="autoModeBtn" class="action-btn auto-mode">
+            <i class="fas fa-sync-alt"></i> Otomatik Mod
+          </button>
+          <button id="showStatsBtn" class="action-btn stats-btn">
+            <i class="fas fa-chart-bar"></i> Statistikanı Göstər
+          </button>
+        </div>
+      </div>
+      
+      <!-- İndikator Paneli -->
+      <div class="indicator-panel">
+        <h3><i class="fas fa-tachometer-alt"></i> İndikator Göstəriciləri</h3>
+        <div class="indicator-item">
+          <span class="indicator-label">EMA(9):</span>
+          <span id="ema9Value" class="indicator-value">-</span>
+        </div>
+        <div class="indicator-item">
+          <span class="indicator-label">EMA(21):</span>
+          <span id="ema21Value" class="indicator-value">-</span>
+        </div>
+        <div class="indicator-item">
+          <span class="indicator-label">Volume Spike:</span>
+          <span id="volumeValue" class="indicator-value">-</span>
+        </div>
+        <div class="indicator-item">
+          <span class="indicator-label">Order Book:</span>
+          <span id="orderBookValue" class="indicator-value">-</span>
+        </div>
+        <div class="indicator-item">
+          <span class="indicator-label">Bazar Vəziyyəti:</span>
+          <span id="marketStateValue" class="indicator-value">-</span>
+        </div>
+        <div class="indicator-item">
+          <span class="indicator-label">LONG Score:</span>
+          <span id="longScoreValue" class="indicator-value LONG">-</span>
+        </div>
+        <div class="indicator-item">
+          <span class="indicator-label">SHORT Score:</span>
+          <span id="shortScoreValue" class="indicator-value SHORT">-</span>
+        </div>
+      </div>
+      
+      <!-- Siqnal Səbəbi Paneli -->
+      <div class="signal-reason">
+        <h3><i class="fas fa-info-circle"></i> Siqnal Səbəbi və Xallar</h3>
+        <div class="reason-container">
+          <p id="signalReasonValue">Analiz başlamayıb</p>
+        </div>
+        <div class="points-breakdown">
+          <h4><i class="fas fa-award"></i> Qazanılan Xallar</h4>
+          <div class="points-container">
+            <div id="pointsDetails" class="points-details">
+              <div class="no-points">Analiz başladıqdan sonra xallar burada göstəriləcək</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="main-content">
+      <!-- Manuel Balans Yönetimi - En Üstte -->
+      <div class="top-balance-management">
+        <div class="balance-management-main">
+          <h3><i class="fas fa-wallet"></i> Manuel Balans Yönetimi</h3>
+          <div class="balance-info-main" id="balanceInfoMain">
+            <div class="balance-item normal" id="currentBalanceDisplayMain">
+              💰 Bakiye: 300.00 USDT
+            </div>
+            <div class="balance-item normal" id="martingaleLevelDisplayMain">
+              📊 Level: 1
+            </div>
+            <div class="balance-item normal" id="recoveryStatusDisplayMain">
+              ✅ Normal Mode
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="status-bar">
+        <div class="status-indicator">
+          <i class="fas fa-info-circle"></i>
+          <div id="statusContainer">Analiz başlatmak için 'Analiz Başlat' butonuna tıklayın.</div>
+        </div>
+      </div>
+      
+      <div class="tab-content active" id="1m30">
+        <!-- 5 Dakikalık Analiz Bilgi Paneli -->
+        <div class="analysis-info-panel">
+          <div class="panel-header">
+            <h3><i class="fas fa-info-circle"></i> 5 Dəqiqəlik Analiz Məlumatları</h3>
+          </div>
+          <div class="panel-content">
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              <span class="info-label">Analiz Periyodu:</span>
+              <span class="info-value">5 Dəqiqə</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-chart-line"></i>
+              <span class="info-label">Strateji:</span>
+              <span class="info-value">EMA + Volume + Order Book</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-target"></i>
+                          <span class="info-label">Min Xal:</span>
+            <span class="info-value">2 Xal (HIZLI)</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-coins"></i>
+              <span class="info-label">Aktiv Mövqe:</span>
+              <span class="info-value" id="activePositionInfo">Hazırda yoxdur</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-chart-area"></i> 5 Dəqiqəlik Analiz</h2>
+            <div class="stats-container" id="stats30">
+              <!-- 30 mum istatistikleri buraya eklenecek -->
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sembol</th>
+                  <th>İşlem</th>
+                  <th>Giriş Fiyatı</th>
+                  <th>Mevcut Fiyat</th>
+                  <th>TP Hedefi / ROI</th>
+                  <th>SL Hedefi / ROI</th>
+                  <th>Sonuç</th>
+                  <th>Başlangıç</th>
+                </tr>
+              </thead>
+              <tbody id="analysisTableBody30">
+                <!-- 30 mum sonuçları burada gösterilecek -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="app.js"></script>
+</body>
+</html> 
